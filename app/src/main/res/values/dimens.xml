@@ -2,9 +2,10 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="main_margin">10dip</dimen>
     <dimen name="secondary_margin">5dip</dimen>
-    <dimen name="numeric_title_size">38sp</dimen>
+    <dimen name="card_margin">20dp</dimen>
     <dimen name="title_size">20sp</dimen>
     <dimen name="divider_height">1dip</dimen>
-    <dimen name="poster_height">200dip</dimen>
-    <dimen name="fan_art_height">185dip</dimen>
+    <dimen name="card_view_height">100dp</dimen>
+    <dimen name="card_view_corner_radius">4dp</dimen>
+
 </resources>

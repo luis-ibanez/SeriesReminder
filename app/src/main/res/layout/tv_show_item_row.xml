@@ -1,23 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/main_margin">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:id="@+id/tv_show_row_card_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SHOW"
-        android:id="@+id/tv_show_row_title"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_marginLeft="@dimen/secondary_margin"
+        android:layout_marginRight="@dimen/secondary_margin"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardCornerRadius="@dimen/card_view_corner_radius"
+        card_view:contentPadding="@dimen/card_margin"
+        card_view:cardElevation="2dp"
+        card_view:cardUseCompatPadding="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="5.3"
-        android:id="@+id/tv_show_row_vote"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        />
-</RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_show_row_title"
+                style="@style/AppTheme.Title.TvShow"
+                android:textSize="@dimen/title_size"
+                android:layout_toLeftOf="@+id/tv_show_row_vote"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_show_row_vote"
+                style="@style/AppTheme.Title.TvShow"
+                android:textSize="@dimen/title_size"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

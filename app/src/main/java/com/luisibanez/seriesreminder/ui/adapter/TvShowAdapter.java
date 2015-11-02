@@ -30,7 +30,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder
     @InjectView(R.id.tv_show_row_title) TextView titleTextView;
     @InjectView(R.id.tv_show_row_vote) TextView voteTextView;
 
-    public TvShowAdapter(TvShowListPresenter tvShowListPresenter,TvShowCollection tvShows) {
+    public TvShowAdapter(TvShowListPresenter tvShowListPresenter, TvShowCollection tvShows) {
         this.tvShowListPresenter = tvShowListPresenter;
         this.tvShows = tvShows;
     }

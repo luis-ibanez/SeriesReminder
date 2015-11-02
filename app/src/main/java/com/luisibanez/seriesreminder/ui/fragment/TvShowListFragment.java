@@ -2,6 +2,7 @@ package com.luisibanez.seriesreminder.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -53,9 +54,9 @@ public class TvShowListFragment extends BaseFragment implements TvShowListPresen
 
     @Override public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initializeGridView();
         tvShowListPresenter.setView(this);
         tvShowListPresenter.initialize();
+        initializeGridView();
     }
 
     @Override
@@ -154,6 +155,7 @@ public class TvShowListFragment extends BaseFragment implements TvShowListPresen
 
     private void initializeGridView() {
         adapter = new TvShowAdapter(tvShowListPresenter, tvShows);
+        rv_tv_shows.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv_tv_shows.setAdapter(adapter);
     }
 

@@ -78,11 +78,6 @@
         <item name="android:background">@color/primary_light</item>
     </style>
 
-    <style name="AppTheme.Image.TvShow">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">@dimen/poster_height</item>
-    </style>
-
     <style name="AppTheme.Title.TvShow">
         <item name="android:ellipsize">end</item>
         <item name="android:singleLine">true</item>
@@ -94,11 +89,6 @@
         <item name="android:singleLine">true</item>
         <item name="android:layout_marginLeft">@dimen/secondary_margin</item>
         <item name="android:paddingBottom">@dimen/main_margin</item>
-    </style>
-
-    <style name="AppTheme.Image.TvShowFranArt">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">@dimen/fan_art_height</item>
     </style>
 
     <style name="AppTheme.TextListViewHeader">
