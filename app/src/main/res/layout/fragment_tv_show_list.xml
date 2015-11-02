@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.luisibanez.seriesreminder.ui.activity.TvShowListActivity$PlaceholderFragment"
+    style="@style/AppTheme.RootView">
+
+    <!-- ProgressBar -->
+
+    <ProgressBar
+        android:id="@+id/tv_show_list_pb_loading"
+        style="@style/AppTheme.ProgressBar"/>
+
+    <!-- EmptyCase -->
+
+    <TextView
+        android:id="@+id/tv_show_list_image_empty_case"
+        style="@style/AppTheme.EmptyCase"/>
+
+    <!-- GridView -->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_shows"
+        style="@style/AppTheme.RecyclerView"/>
+
+</RelativeLayout>
