@@ -10,6 +10,8 @@ import com.luisibanez.seriesreminder.ui.adapter.TvShowCollection;
 
 import java.util.Collection;
 
+import javax.inject.Inject;
+
 /**
  * Created by libanez on 01/11/2015.
  */
@@ -23,8 +25,9 @@ public class TvShowListPresenter extends Presenter {
 
     private int nextPage;
 
-    private TvShowCollection currentTvShowCollection;
+    private TvShowCollection currentTvShowCollection = new TvShowCollection();
 
+    @Inject
     public TvShowListPresenter(GetTvShows getTvShowsInteractor) {
         this.getTvShowsInteractor = getTvShowsInteractor;
     }
@@ -62,7 +65,7 @@ public class TvShowListPresenter extends Presenter {
         showTvShows(tvShowCollection.getAsList());
     }
 
-    public void onTvShowClicked(final TvShow tvShow) {
+    public void onTvShowClicked(final String tvShowId) {
         //TODO: show seasons
     }
 

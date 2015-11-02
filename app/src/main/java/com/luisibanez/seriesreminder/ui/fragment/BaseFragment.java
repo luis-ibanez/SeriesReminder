@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.luisibanez.seriesreminder.ui.activity.BaseActivity;
+
 import butterknife.ButterKnife;
 
 /**
@@ -27,6 +29,20 @@ public abstract class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         injectViews(view);
     }
+
+    @Override public void onAttach(Context context) {
+        super.onAttach(context);
+        injectDependencies();
+    }
+
+    /**
+     * Replace every field annotated using @Inject annotation with the provided dependency specified
+     * inside a Dagger module value.
+     */
+    private void injectDependencies() {
+        ((BaseActivity) getActivity()).inject(this);
+    }
+
 
     /**
      * Every fragment has to inflate a layout in the onCreateView method. We have added this method to

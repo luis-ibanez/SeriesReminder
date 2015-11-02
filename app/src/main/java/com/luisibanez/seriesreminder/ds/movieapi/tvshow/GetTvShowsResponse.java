@@ -4,9 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import retrofit.Response;
+import java.util.Collection;
 
 /**
  * Created by libanez on 01/11/2015.
@@ -15,12 +13,23 @@ public class GetTvShowsResponse {
 
     private int page;
     private int total_pages;
-    private List<TvShowMovieApi> results;
+    private Collection<TvShowMovieApi> results;
 
     // public constructor is necessary for collections
     public GetTvShowsResponse() {
-        int nextPage;
         results = new ArrayList<TvShowMovieApi>();
+    }
+
+    public int getNextPage() {
+        return page;
+    }
+
+    public int getTotalPages() {
+        return total_pages;
+    }
+
+    public Collection<TvShowMovieApi> getTvShows() {
+        return results;
     }
 
     public static GetTvShowsResponse parseJSON(String response) {

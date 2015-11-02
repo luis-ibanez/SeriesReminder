@@ -1,14 +1,19 @@
 package com.luisibanez.seriesreminder.domain;
 
+import android.util.Log;
+
 import com.luisibanez.seriesreminder.domain.tvshow.TvShow;
 import com.luisibanez.seriesreminder.ds.movieapi.MovieApiDataSource;
 import com.luisibanez.seriesreminder.ds.movieapi.MovieApiEndpointInterface;
+import com.luisibanez.seriesreminder.ds.movieapi.MovieApiMapper;
 import com.luisibanez.seriesreminder.ds.movieapi.tvshow.GetTvShowsResponse;
 import com.luisibanez.seriesreminder.executor.Executor;
 import com.luisibanez.seriesreminder.executor.Interactor;
 import com.luisibanez.seriesreminder.executor.MainThread;
 
 import java.util.Collection;
+
+import javax.inject.Inject;
 
 import retrofit.Call;
 import retrofit.Response;
@@ -26,6 +31,7 @@ public class GetTvShowsInteractor implements Interactor, GetTvShows {
     private Callback callback;
     private MovieApiEndpointInterface apiService;
 
+    @Inject
     public GetTvShowsInteractor(Executor executor, MainThread mainThread) {
         this.executor = executor;
         this.mainThread = mainThread;
@@ -64,18 +70,20 @@ public class GetTvShowsInteractor implements Interactor, GetTvShows {
         call.enqueue(new retrofit.Callback<GetTvShowsResponse>() {
             @Override
             public void onResponse(Response<GetTvShowsResponse> response, Retrofit retrofit) {
-                System.out.println("£$££$£$£$£$£$£$$££$££$£$£$$££$£££$£$");
-                System.out.println("£$££$£$£$£$£$£$$££$££$£$£$$££$£££$£$");
-                System.out.println("£$££$£$£$£$£$£$$££$££$£$£$$££$£££$£$");
-                System.out.println("£$££$£$£$£$£$£$$££$££$£$£$$££$£££$£$");
+                if(response.body().getNextPage()<response.body().getTotalPages()) {
+                    nofityTvShowsLoaded(
+                            response.body().getNextPage(),
+                            MovieApiMapper.getTvShowsFromApiTvShows(response.body().getTvShows()));
+                }
+
             }
 
             @Override
             public void onFailure(Throwable t) {
 
+                Log.d("TAG", "Coaas");
             }
         });
-        nofityTvShowsLoaded(1, tvShows);
     }
 
     private void notifyError() {

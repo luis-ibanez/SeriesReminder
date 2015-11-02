@@ -31,4 +31,7 @@ dependencies {
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
+    compile 'javax.inject:javax.inject:1@jar'
+    provided 'com.squareup.dagger:dagger-compiler:1.2.+'
+    compile 'com.squareup.dagger:dagger:1.2.+'
 }

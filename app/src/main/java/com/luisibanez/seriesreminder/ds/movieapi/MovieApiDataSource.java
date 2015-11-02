@@ -6,7 +6,11 @@ import com.luisibanez.seriesreminder.ds.movieapi.tvshow.GetSeasonsResponse;
 import com.luisibanez.seriesreminder.ds.movieapi.tvshow.GetTvShowsResponse;
 import com.luisibanez.seriesreminder.ds.movieapi.tvshow.SeasonMovieApi;
 import com.luisibanez.seriesreminder.ds.movieapi.tvshow.TvShowMovieApi;
+import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit.Call;
@@ -22,11 +26,25 @@ import retrofit.http.Query;
  */
 public class MovieApiDataSource {
 
-    private static final String MOVIE_API_ENDPOINT = "https://api.themoviedb.org/3/tv?api_key=966a4be6697f1d65805f13f6e25a5798";
+    private static final String MOVIE_API_ENDPOINT = "https://api.themoviedb.org";
 
     private MovieApiEndpointInterface apiService;
 
     public MovieApiDataSource() {
+
+        // Define the interceptor, add authentication headers
+        Interceptor interceptor = new Interceptor() {
+            @Override
+            public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
+                Request newRequest = chain.request().newBuilder().addHeader("User-Agent", "Retrofit-Sample-App").build();
+                return chain.proceed(newRequest);
+            }
+        };
+
+        // Add the interceptor to OkHttpClient
+        OkHttpClient client = new OkHttpClient();
+        client.interceptors().add(interceptor);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(MOVIE_API_ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())

@@ -9,6 +9,8 @@ import com.luisibanez.seriesreminder.executor.MainThread;
 
 import java.util.Collection;
 
+import javax.inject.Inject;
+
 /**
  * Created by libanez on 01/11/2015.
  */
@@ -19,6 +21,7 @@ public class GetChaptersInteractor implements Interactor, GetChapters {
 
     private Callback callback;
 
+    @Inject
     public GetChaptersInteractor(Executor executor, MainThread mainThread) {
         this.executor = executor;
         this.mainThread = mainThread;

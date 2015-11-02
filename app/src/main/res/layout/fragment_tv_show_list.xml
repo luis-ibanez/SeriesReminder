@@ -13,13 +13,13 @@
     <!-- EmptyCase -->
 
     <TextView
-        android:id="@+id/tv_show_list_image_empty_case"
+        android:id="@+id/tv_show_list_empty_case"
         style="@style/AppTheme.EmptyCase"/>
 
     <!-- GridView -->
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_shows"
+        android:id="@+id/tv_show_rv_shows"
         style="@style/AppTheme.RecyclerView"/>
 
 </RelativeLayout>

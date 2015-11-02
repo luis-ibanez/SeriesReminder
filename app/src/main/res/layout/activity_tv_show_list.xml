@@ -3,10 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/main_margin"
-    android:paddingRight="@dimen/main_margin"
-    android:paddingTop="@dimen/main_margin"
-    android:paddingBottom="@dimen/main_margin"
     tools:context="com.luisibanez.seriesreminder.ui.activity.TvShowListActivity">
 
     <fragment

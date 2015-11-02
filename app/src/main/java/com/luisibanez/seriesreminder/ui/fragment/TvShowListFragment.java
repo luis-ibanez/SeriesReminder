@@ -1,19 +1,23 @@
 package com.luisibanez.seriesreminder.ui.fragment;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.ProgressBar;
 
 import com.luisibanez.seriesreminder.R;
 import com.luisibanez.seriesreminder.domain.tvshow.Chapter;
 import com.luisibanez.seriesreminder.domain.tvshow.Season;
 import com.luisibanez.seriesreminder.domain.tvshow.TvShow;
+import com.luisibanez.seriesreminder.ui.adapter.TvShowAdapter;
 import com.luisibanez.seriesreminder.ui.adapter.TvShowCollection;
 import com.luisibanez.seriesreminder.ui.presenter.TvShowListPresenter;
+import com.luisibanez.seriesreminder.util.ToastUtils;
 
 import java.util.Collection;
+
+import javax.inject.Inject;
 
 import butterknife.InjectView;
 
@@ -34,38 +38,41 @@ public class TvShowListFragment extends BaseFragment implements TvShowListPresen
 
     private static final String EXTRA_TV_SHOW_CATALOG = "extra_tv_show_catalog";
 
-    @Inject TvShowListPresenter tvShowCatalogPresenter;
-    @Inject TvShowAdapterFactory tvShowRendererAdapterFactory;
-
-    private RendererAdapter<TvShow> adapter;
+    private TvShowAdapter adapter;
     private TvShowCollection tvShows = new TvShowCollection();
 
-    @InjectView(R.id.pb_loading)
+    @Inject
+    TvShowListPresenter tvShowListPresenter;
+
+    @InjectView(R.id.tv_show_list_pb_loading)
     ProgressBar pb_loading;
-    @InjectView(R.id.gv_tv_shows)
-    GridView gv_tv_shows;
-    @InjectView(R.id.v_empty_case)
+    @InjectView(R.id.tv_show_rv_shows)
+    RecyclerView rv_tv_shows;
+    @InjectView(R.id.tv_show_list_empty_case)
     View v_empty_case;
 
     @Override public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initializeGridView();
-        tvShowCatalogPresenter.setView(this);
-        tvShowCatalogPresenter.initialize();
+        tvShowListPresenter.setView(this);
+        tvShowListPresenter.initialize();
     }
 
-    @Override public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
     }
 
-    @Override public void onResume() {
+    @Override
+    public void onResume() {
         super.onResume();
-        tvShowCatalogPresenter.resume();
+        tvShowListPresenter.resume();
     }
 
-    @Override public void onPause() {
+    @Override
+    public void onPause() {
         super.onPause();
-        tvShowCatalogPresenter.pause();
+        tvShowListPresenter.pause();
     }
 
     /**
@@ -74,12 +81,14 @@ public class TvShowListFragment extends BaseFragment implements TvShowListPresen
      * using different configurations for landscape and portrait and we have to use this approach
      * instead of onConfigurationChanges.
      */
-    @Override public void onSaveInstanceState(Bundle outState) {
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(EXTRA_TV_SHOW_CATALOG, tvShowCatalogPresenter.getCurrentTvShows());
+        outState.putSerializable(EXTRA_TV_SHOW_CATALOG, tvShowListPresenter.getCurrentTvShows());
     }
 
-    @Override public void onViewStateRestored(Bundle savedInstanceState) {
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         if (savedInstanceState != null) {
             final TvShowCollection tvShowCollection =
@@ -88,23 +97,14 @@ public class TvShowListFragment extends BaseFragment implements TvShowListPresen
         }
     }
 
-    @Override public void hideLoading() {
+    @Override
+    public void hideLoading() {
         pb_loading.setVisibility(View.GONE);
     }
 
-    @Override public void showLoading() {
+    @Override
+    public void showLoading() {
         pb_loading.setVisibility(View.VISIBLE);
-    }
-
-    @Override public void renderVideos(final Collection<TvShow> tvShows) {
-        this.tvShows.clear();
-        this.tvShows.addAll(tvShows);
-        refreshAdapter();
-    }
-
-    @Override public void updateTitleWithCountOfTvShows(final int counter) {
-        String actionBarTitle = getString(R.string.app_name_with_chapter_counter, counter);
-        getActivity().setTitle(actionBarTitle);
     }
 
     @Override public void showConnectionErrorMessage() {
@@ -122,7 +122,9 @@ public class TvShowListFragment extends BaseFragment implements TvShowListPresen
 
     @Override
     public void renderTvShows(Collection<TvShow> tvShows) {
-
+        this.tvShows.clear();
+        this.tvShows.addAll(tvShows);
+        refreshAdapter();
     }
 
     @Override
@@ -135,10 +137,6 @@ public class TvShowListFragment extends BaseFragment implements TvShowListPresen
 
     }
 
-    @Override public void showTvShowTitleAsMessage(TvShow tvShow) {
-        ToastUtils.showShortMessage(tvShow.getTitle(), getActivity());
-    }
-
     @Override
     public boolean isReady() {
         return isAdded();
@@ -146,7 +144,7 @@ public class TvShowListFragment extends BaseFragment implements TvShowListPresen
 
     @Override
     public boolean isAlreadyLoaded() {
-        return adapter.getCount() > 0;
+        return adapter.getItemCount() > 0;
     }
 
     @Override
@@ -155,13 +153,13 @@ public class TvShowListFragment extends BaseFragment implements TvShowListPresen
     }
 
     private void initializeGridView() {
-        adapter = tvShowRendererAdapterFactory.getTvShowRendererAdapter(tvShows);
-        gv_tv_shows.setAdapter(adapter);
+        adapter = new TvShowAdapter(tvShowListPresenter, tvShows);
+        rv_tv_shows.setAdapter(adapter);
     }
 
     private void updatePresenterWithSavedTvShow(TvShowCollection tvShowCollection) {
         if (tvShowCollection != null) {
-            tvShowCatalogPresenter.loadCatalog(tvShowCollection);
+            tvShowListPresenter.loadCatalog(tvShowCollection);
         }
     }
 

@@ -7,6 +7,8 @@ import com.luisibanez.seriesreminder.executor.MainThread;
 
 import java.util.Collection;
 
+import javax.inject.Inject;
+
 /**
  * Created by libanez on 01/11/2015.
  */
@@ -17,6 +19,7 @@ public class GetSeasonsInteractor implements Interactor, GetSeasons {
 
     private Callback callback;
 
+    @Inject
     public GetSeasonsInteractor(Executor executor, MainThread mainThread) {
         this.executor = executor;
         this.mainThread = mainThread;

@@ -3,6 +3,8 @@ package com.luisibanez.seriesreminder.executor;
 import android.os.Handler;
 import android.os.Looper;
 
+import javax.inject.Inject;
+
 /**
  * MainThread implementation based on a Handler instantiated over the main looper obtained from
  * Looper class.
@@ -13,6 +15,7 @@ class MainThreadImpl implements MainThread {
 
     private Handler handler;
 
+    @Inject
     MainThreadImpl() {
         this.handler = new Handler(Looper.getMainLooper());
     }
